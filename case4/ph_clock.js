@@ -12,26 +12,29 @@
 */
 
 
-var minsLeft = 0; //track number of minutes left
-var secsLeft = 15; //track number of seconds left within each minute
-var timeLeft = (minsLeft * 60) + secsLeft;
+var minsLeft = 30; //track number of minutes left
+var secsLeft = 0; //track number of seconds left within each minute
+var timeLeft = (minsLeft * 60) + secsLeft; // calculates amount of time left
+var clockID = setInterval(countdown, 1000);
 
 countdown();
 
 function stopClock() {
-   document.getElementById('TimeHead').insertAdjacentHTML('beforeend', "<br />(Order Expired)");
-   clearInterval(clockID);
+   document.getElementById('TimeHead').insertAdjacentHTML('beforeend', "<br />(Order Expired)"); //adds order expired message after time runs out
+   clearInterval(clockID); //clears interval located in clockID
 }
 
+//changes the inner text to a countdown
 function countdown() {
-   var minsLeft = Math.floor(timeLeft / 60);
-   var secsLeft = timeLeft - (60 * minsLeft);
-   var minsString = addLeadingZero(minsLeft);
-   var secsString = addLeadingZero(secsLeft);
-   document.getElementById('minutes').innerText = minsString;
-   document.getElementById('seconds').innerText = secsString;
+   var minsLeft = Math.floor(timeLeft / 60); //calculates mintues left
+   var secsLeft = timeLeft - (60 * minsLeft); //calculates seconds left
+   var minsString = addLeadingZero(minsLeft); //makes minutes a string
+   var secsString = addLeadingZero(secsLeft); //makes seconds a string
+   document.getElementById('minutes').textContent = minsString;
+   document.getElementById('seconds').textContent = secsString;
    checkTimer();
    timeLeft -= 1;
+   console.log(timeLeft);
 }
 
 /* ------------------------------------------------- */
@@ -44,7 +47,6 @@ function countdown() {
 function checkTimer() {
    if (timeLeft === 0) stopClock();
 }
-
 
 /* The addLeadingZero() function adds a leading zero to values which are less than 10 */
 
